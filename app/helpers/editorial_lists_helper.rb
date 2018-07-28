@@ -1,0 +1,2 @@
+module EditorialListsHelper
+end
