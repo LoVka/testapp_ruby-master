@@ -7,10 +7,8 @@ class User < ApplicationRecord
 
   has_many :posts
 
-  validates :full_name, presence: true
-  validates :address, presence: true
-  validates :age, presence: true, numericality: { greater_than_or_equal_to: 18 }
-  # validates :role, presence: true
+  validates_presence_of :full_name,:address, :age, :role
+  validates_numericality_of :age, greater_than_or_equal_to: 18
 
   aasm do
     state :new, initial: true

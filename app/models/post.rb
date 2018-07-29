@@ -4,6 +4,6 @@ class Post < ApplicationRecord
 
   has_and_belongs_to_many :editorial_lists
 
-  validates :title, :lead, :body, presence: true
-  validates :lead, length: { minimum: 15, maximum: 1000 }
+  validates_presence_of :title, :lead, :body
+  validates_length_of :lead, minimum: 15, maximum: 1000
 end
