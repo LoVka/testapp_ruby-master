@@ -5,8 +5,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    if params[:state]
-      @users = User.unscoped.where("aasm_state = #{params[:state]}")
+    if params[:state].present?
+      @users = User.unscoped.where(aasm_state: params[:state])
     else
       @users = User.all
     end

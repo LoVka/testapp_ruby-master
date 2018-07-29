@@ -16,53 +16,59 @@ ActiveRecord::Schema.define(version: 2018_07_16_125817) do
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.string "slug"
-    t.integer "order"
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.integer "position", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["position"], name: "index_categories_on_position", unique: true
+    t.index ["slug"], name: "index_categories_on_slug", unique: true
   end
 
   create_table "editorial_lists", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "about"
-    t.string "slug"
+    t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_editorial_lists_on_slug", unique: true
   end
 
   create_table "editorial_lists_posts", force: :cascade do |t|
-    t.bigint "editorial_list_id"
-    t.bigint "post_id"
+    t.bigint "editorial_list_id", null: false
+    t.bigint "post_id", null: false
     t.index ["editorial_list_id"], name: "index_editorial_lists_posts_on_editorial_list_id"
     t.index ["post_id"], name: "index_editorial_lists_posts_on_post_id"
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
-    t.bigint "category_id"
+    t.bigint "category_id", null: false
     t.bigint "user_id"
+    t.string "title", null: false
+    t.text "body", null: false
+    t.text "lead", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "lead"
     t.index ["category_id"], name: "index_posts_on_category_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "password"
-    t.string "full_name"
-    t.string "address"
-    t.string "role"
-    t.string "aasm_state"
-    t.integer "age"
-    t.boolean "admin", default: false
+    t.string "email", null: false
+    t.string "password", null: false
+    t.string "full_name", null: false
+    t.string "address", null: false
+    t.string "role", null: false
+    t.string "aasm_state", null: false
+    t.integer "age", null: false
+    t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "posts", "categories"
-  add_foreign_key "posts", "users"
+  add_foreign_key "editorial_lists_posts", "editorial_lists", on_delete: :cascade
+  add_foreign_key "editorial_lists_posts", "posts", on_delete: :cascade
+  add_foreign_key "posts", "categories", on_delete: :cascade
+  add_foreign_key "posts", "users", on_delete: :nullify
 end
