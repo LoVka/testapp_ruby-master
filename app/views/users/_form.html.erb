@@ -17,13 +17,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :password %>
-    <%= form.text_field :password %>
+    <%= form.label :full_name %>
+    <%= form.text_field :full_name %>
   </div>
 
   <div class="field">
-    <%= form.label :full_name %>
-    <%= form.text_field :full_name %>
+    <%= form.label :role %>
+    <%= form.select :role, User::ROLES %>
   </div>
 
   <div class="field">
@@ -31,24 +31,20 @@
     <%= form.text_field :address %>
   </div>
 
-  <% if current_user && current_user.admin? %>
-    <div class="field">
-      <%= form.label :role %>
-      <%= form.select :role, options_for_select('manager', 'user', 'viewer') %>
-    </div>
-  <% end %>
-
   <div class="field">
     <%= form.label :age %>
     <%= form.number_field :age %>
   </div>
 
-  <% if current_user && current_user.admin? %>
-    <div class="field">
-      <%= form.label :admin %>
-      <%= form.check_box :admin %>
-    </div>
-  <% end %>
+  <div class="field">
+    <%= form.check_box :approved, style: 'float: left;' %>
+    <%= form.label :approved %>
+  </div>
+
+  <div class="field">
+    <%= form.check_box :banned, style: 'float: left;' %>
+    <%= form.label :banned %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>

@@ -1,42 +1,30 @@
 class User < ApplicationRecord
-  include AASM
-  devise :database_authenticatable, :registerable,
+  ADMIN = 'Admin'.freeze
+  MANAGER = 'Manager'.freeze
+  USER = 'User'.freeze
+  ROLES = [ADMIN, MANAGER, USER].freeze
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  default_scope { where("aasm_state != 'banned'") }
 
   has_many :posts
 
-  validates_presence_of :full_name,:address, :age, :role
+  validates_presence_of :full_name, :address, :age
   validates_numericality_of :age, greater_than_or_equal_to: 18
 
-  aasm do
-    state :new, initial: true
-    state :approved
-    state :banned
-
-    event :approve do
-      transitions from: :new, to: :approved
-    end
-
-    event :ban do
-      transitions from: :approved, to: :banned
-    end
-
-    event :restore do
-      transitions from: :banned, to: :approved
-    end
+  def state
+    return 'banned' if banned?
+    return 'approved' if approved?
+    return 'confirmed' if confirmed?
+    'new'
   end
 
-  def manager?
-    role == 'manager'
+  def active_for_authentication?
+    super && !banned? && approved?
   end
 
-  def user?
-    role == 'user'
-  end
-
-  def viewer?
-    role == 'viewer'
+  def inactive_message
+    return :banned if confirmed? && !banned?
+    return :not_approved if confirmed? && !approved?
+    super
   end
 end

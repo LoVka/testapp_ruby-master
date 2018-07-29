@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @category.name %>
@@ -12,7 +10,7 @@
 
 <p>
   <strong>Order:</strong>
-  <%= @category.order %>
+  <%= @category.position %>
 </p>
 
 <%= link_to 'Edit', edit_category_path(@category) %> |

@@ -1,6 +1,5 @@
 class EditorialListsController < ApplicationController
-  before_action :set_editorial_list, only: [:add, :show, :edit, :update, :destroy]
-  before_action :authorize!
+  load_and_authorize_resource
 
   # GET /editorial_lists
   # GET /editorial_lists.json
@@ -71,20 +70,9 @@ class EditorialListsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_editorial_list
-      @editorial_list = EditorialList.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def editorial_list_params
-      params.require(:editorial_list).permit(:title, :about, :slug)
-    end
-
-    def authorize!
-      if !current_user || !current_user.admin? || !current_user.role == 'manager'
-        flash[:alert] = 'Access restricted'
-        redirect_back(fallback_location: root_path)
-      end
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def editorial_list_params
+    params.require(:editorial_list).permit(:title, :about, :slug)
+  end
 end

@@ -1,11 +1,10 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
-  before_action :authorize!
+  load_and_authorize_resource
 
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    @categories = Category.order(:position)
   end
 
   # GET /categories/1
@@ -63,21 +62,9 @@ class CategoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_category
-      @category = Category.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def category_params
-      params.require(:category).permit(:name, :slug, :order)
-    end
-
-    def authorize!
-      if cannot? :update, Category
-        # !user || !user.admin? || !user.role == 'manager'
-        flash[:alert] = 'Access restricted'
-        redirect_back(fallback_location: root_path)
-      end
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def category_params
+    params.require(:category).permit(:name, :slug, :position)
+  end
 end

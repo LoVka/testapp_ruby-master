@@ -18,7 +18,6 @@ RSpec.describe Category do
   describe 'Validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:slug) }
-    it { is_expected.to validate_presence_of(:position) }
 
     context 'uniqueness' do
       subject { Category.new(name: 'Category', slug: 'category', position: 1) }

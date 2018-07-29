@@ -1,11 +1,10 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authorize!
+  load_and_authorize_resource
 
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.accessible_by(current_ability)
   end
 
   # GET /posts/1
@@ -63,20 +62,9 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def post_params
-      params.require(:post).permit(:title, :lead, :body, :category_id, :user_id)
-    end
-
-    def authorize!
-      if !current_user || !current_user.admin? || !current_user.role == 'manager' || !current_user.role == 'user'
-        flash[:alert] = 'Access restricted'
-        redirect_back(fallback_location: root_path)
-      end
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def post_params
+    params.require(:post).permit(:title, :lead, :body, :category_id, :user_id)
+  end
 end

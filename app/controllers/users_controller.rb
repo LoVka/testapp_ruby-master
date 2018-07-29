@@ -1,14 +1,13 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :authorize!, except: [:login, :new, :create]
+  load_and_authorize_resource
 
   # GET /users
   # GET /users.json
   def index
     if params[:state].present?
-      @users = User.unscoped.where(aasm_state: params[:state])
+      @users = User.unscoped.where(aasm_state: params[:state]).order(:id)
     else
-      @users = User.all
+      @users = User.order(:id)
     end
   end
 
@@ -67,20 +66,9 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:email, :password, :full_name, :address, :role, :age, :admin)
-    end
-
-    def authorize!
-      if !current_user || !current_user.admin?
-        flash[:alert] = 'Access restricted'
-        redirect_back(fallback_location: root_path)
-      end
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:email, :full_name, :address, :age, :approved, :banned)
+  end
 end

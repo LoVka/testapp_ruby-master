@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2018_07_16_125817) do
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "slug", null: false
-    t.integer "position", default: 1, null: false
+    t.integer "position", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["position"], name: "index_categories_on_position", unique: true
@@ -55,13 +55,17 @@ ActiveRecord::Schema.define(version: 2018_07_16_125817) do
 
   create_table "users", force: :cascade do |t|
     t.string "full_name", null: false
+    t.string "role", default: "User", null: false
     t.string "address", null: false
     t.integer "age", null: false
-    t.boolean "admin", default: false, null: false
-    t.string "role", null: false
-    t.string "aasm_state", null: false
-    t.string "email", null: false
-    t.string "encrypted_password", null: false
+    t.boolean "approved", default: false, null: false
+    t.boolean "banned", default: false, null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -72,6 +76,7 @@ ActiveRecord::Schema.define(version: 2018_07_16_125817) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
