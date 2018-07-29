@@ -30,6 +30,18 @@ class User < ApplicationRecord
     end
   end
 
+  def manager?
+    role == 'manager'
+  end
+
+  def user?
+    role == 'user'
+  end
+
+  def viewer?
+    role == 'viewer'
+  end
+
   def self.authenticate(email, password)
     user = find_by_email(email)
     user && user.password == password ? user : nil

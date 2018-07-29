@@ -74,7 +74,8 @@ class CategoriesController < ApplicationController
     end
 
     def authorize!
-      if !user || !user.admin? || !user.role == 'manager'
+      if cannot? :update, Category
+        # !user || !user.admin? || !user.role == 'manager'
         flash[:alert] = 'Access restricted'
         redirect_back(fallback_location: root_path)
       end
