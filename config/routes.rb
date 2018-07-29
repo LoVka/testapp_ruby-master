@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root 'home#index'
 
   resources :users
@@ -7,11 +8,6 @@ Rails.application.routes.draw do
   resources :categories
 
   post 'editorial_lists/add', to: 'editorial_lists#add'
-
-  get 'login', to: 'users#login'
-  post 'login', to: 'users#login'
-
-  get 'logout', to: 'users#log_out'
 
   get '/rss/latest.xml', to: 'rss#latest'
   get '/rss/category/:slug.xml', to: 'rss#category'

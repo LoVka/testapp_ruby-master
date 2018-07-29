@@ -1,17 +1,19 @@
 <div id="content">
-	<% @categories.each do |category| %>
-	<div class="category clearfix">
-		<h3><%= category.name %></h3>
-		<div class="posts">
-			<% category.posts.limit(4).each do |post| %>
-			<div class="post">
-				<h3><%= link_to(post.title, "/#{post.category.slug}/#{post.id}") %></h3>
-				<div class="body">
-					<%= @markdown.render(post.lead).html_safe %>
-				</div>
-			</div>
-			<% end %>
-		</div>
-	</div>
-	<% end %>
+  <% @categories.each do |category| %>
+    <div class="category clearfix">
+      <h3><%= category.name %></h3>
+
+      <div class="posts">
+        <% category.posts.limit(4).each do |post| %>
+          <div class="post">
+            <h3><%= link_to(post.title, "/#{post.category.slug}/#{post.id}") %></h3>
+
+            <div class="body">
+              <%= @markdown.render(post.lead).html_safe %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>

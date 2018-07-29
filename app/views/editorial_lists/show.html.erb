@@ -16,12 +16,12 @@
 </p>
 
 <p>
-	<strong>Posts:</strong>
-	<ul>
-	<% @editorial_list.posts.each do |post| %>
-		<li><%= link_to(post.title, post) %></li>
-	<% end %>
-	</ul>
+  <strong>Posts:</strong>
+<ul>
+  <% @editorial_list.posts.each do |post| %>
+    <li><%= link_to(post.title, post) %></li>
+  <% end %>
+</ul>
 </p>
 
 <%= link_to 'Edit', edit_editorial_list_path(@editorial_list) %> |

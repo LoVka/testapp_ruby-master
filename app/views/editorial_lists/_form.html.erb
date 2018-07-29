@@ -4,9 +4,9 @@
       <h2><%= pluralize(editorial_list.errors.count, "error") %> prohibited this editorial_list from being saved:</h2>
 
       <ul>
-      <% editorial_list.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% editorial_list.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>

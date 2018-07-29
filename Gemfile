@@ -17,7 +17,6 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 
 gem 'aasm', '~> 4.12.3'
-gem 'rails_warden', '~> 0.6.0'
 gem 'redcarpet', '~> 3.4.0'
 
 # Use CoffeeScript for .coffee assets and views
@@ -40,6 +39,7 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'cancancan'
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

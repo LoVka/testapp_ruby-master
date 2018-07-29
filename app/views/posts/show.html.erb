@@ -21,12 +21,12 @@
 </p>
 
 <p>
-	<strong>Add to list:</strong>
-	<%= form_tag('/editorial_lists/add', method: :post) do %>
-		<%= hidden_field_tag(:post_id, @post.id) %>
-		<%= select_tag(:id, options_for_select(EditorialList.all.map { |l| [l.title, l.id] })) %>
-		<%= submit_tag('Add') %>
-	<% end %>
+  <strong>Add to list:</strong>
+  <%= form_tag('/editorial_lists/add', method: :post) do %>
+    <%= hidden_field_tag(:post_id, @post.id) %>
+    <%= select_tag(:id, options_for_select(EditorialList.all.map { |l| [l.title, l.id] })) %>
+    <%= submit_tag('Add') %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

@@ -22,16 +22,6 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def login
-    if request.post?
-      redirect_to root_path if warden.authenticate!
-    end
-  end
-
-  def log_out
-    logout && redirect_to('/login')
-  end
-
   # GET /users/1/edit
   def edit
   end
@@ -88,7 +78,7 @@ class UsersController < ApplicationController
     end
 
     def authorize!
-      if !user || !user.admin?
+      if !current_user || !current_user.admin?
         flash[:alert] = 'Access restricted'
         redirect_back(fallback_location: root_path)
       end

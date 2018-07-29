@@ -1,16 +1,16 @@
 class User < ApplicationRecord
   include AASM
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 
   default_scope { where("aasm_state != 'banned'") }
 
   has_many :posts
 
-  validates :email, presence: true, uniqueness: true, format: { with: /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i }
-  validates :password, presence: true
   validates :full_name, presence: true
-  validates :role, presence: true
   validates :address, presence: true
   validates :age, presence: true, numericality: { greater_than_or_equal_to: 18 }
+  # validates :role, presence: true
 
   aasm do
     state :new, initial: true
@@ -40,10 +40,5 @@ class User < ApplicationRecord
 
   def viewer?
     role == 'viewer'
-  end
-
-  def self.authenticate(email, password)
-    user = find_by_email(email)
-    user && user.password == password ? user : nil
   end
 end

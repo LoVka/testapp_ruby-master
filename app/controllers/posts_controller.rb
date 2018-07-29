@@ -74,7 +74,7 @@ class PostsController < ApplicationController
     end
 
     def authorize!
-      if !user || !user.admin? || !user.role == 'manager' || !user.role == 'user'
+      if !current_user || !current_user.admin? || !current_user.role == 'manager' || !current_user.role == 'user'
         flash[:alert] = 'Access restricted'
         redirect_back(fallback_location: root_path)
       end

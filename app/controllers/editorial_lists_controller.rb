@@ -82,7 +82,7 @@ class EditorialListsController < ApplicationController
     end
 
     def authorize!
-      if !user || !user.admin? || !user.role == 'manager'
+      if !current_user || !current_user.admin? || !current_user.role == 'manager'
         flash[:alert] = 'Access restricted'
         redirect_back(fallback_location: root_path)
       end
