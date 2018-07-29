@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'shoulda/matchers'
 
-RSpec.describe Post do
+RSpec.describe Post, type: :model do
   describe 'Database' do
     it { is_expected.to have_db_column(:category_id).of_type(:integer).with_options(null: false) }
     it { is_expected.to have_db_column(:user_id).of_type(:integer) }

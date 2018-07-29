@@ -28,12 +28,14 @@
 
   <div class="field">
     <%= form.label :category_id %>
-    <%= form.select :category_id, options_for_select(Category.all.map { |c| [c.name, c.id] }) %>
+    <%= form.select :category_id, options_for_select(Category.order(:position).map { |c| [c.name, c.id] }) %>
   </div>
 
-  <div class="field">
-    <%= form.hidden_field(:user_id, value: current_user.id) %>
-  </div>
+  <%= hidden_field_tag 'post[editorial_list_ids][]', nil %>
+  <% EditorialList.order(:title).each do |editorial_list| %>
+    <%= check_box_tag 'post[editorial_list_ids][]', editorial_list.id, post.editorial_list_ids.include?(editorial_list.id), id: dom_id(editorial_list), style: 'float: left;' %>
+    <%= label_tag dom_id(editorial_list), editorial_list.title %><br />
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

@@ -23,7 +23,7 @@ class User < ApplicationRecord
   end
 
   def inactive_message
-    return :banned if confirmed? && !banned?
+    return :banned if confirmed? && banned?
     return :not_approved if confirmed? && !approved?
     super
   end

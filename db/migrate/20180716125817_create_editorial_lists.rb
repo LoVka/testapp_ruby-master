@@ -8,11 +8,14 @@ class CreateEditorialLists < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
+    add_index :editorial_lists, :title
     add_index :editorial_lists, :slug, unique: true
 
     create_table :editorial_lists_posts do |t|
       t.belongs_to :editorial_list, foreign_key: {to_table: :editorial_lists, on_delete: :cascade}, index: true, null: false
       t.belongs_to :post, foreign_key: {to_table: :posts, on_delete: :cascade}, index: true, null: false
     end
+
+    add_index :editorial_lists_posts, [:editorial_list_id, :post_id], unique: true
   end
 end

@@ -38,16 +38,28 @@ category = Category.create!(
 
 Post.create!(
   title: 'Post1',
-  body: 'some actions',
+  body: '**Post1** _Body_ Exmpale.',
   category: category,
-  lead: 'some actions some action some action some action some action',
+  lead: 'Lead of the **New Post1** Exmpale.',
   user: manager
 )
 
 Post.create!(
   title: 'New Post',
-  body: 'some actions',
+  body: '**New Post** _Body_ Exmpale.',
   category: category,
-  lead: 'some actions some action some action some action some action',
+  lead: 'Lead of the **New Post** Exmpale.',
   user: user
+)
+
+EditorialList.create!(
+  title: 'Editorial List1',
+  about: 'About Editorial List1',
+  slug: 'editorial-list1'
+)
+
+EditorialList.create!(
+  title: 'Editorial List2',
+  about: 'About Editorial List2',
+  slug: 'editorial-list2'
 )

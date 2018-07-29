@@ -4,12 +4,13 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.accessible_by(current_ability)
+    @posts = Post.accessible_by(current_ability).preload(:category, :user)
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @lists = @post.editorial_lists.order(:title).pluck(:title)
   end
 
   # GET /posts/new
@@ -25,6 +26,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
+    @post.user_id = current_user.id
 
     respond_to do |format|
       if @post.save
@@ -65,6 +67,6 @@ class PostsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def post_params
-    params.require(:post).permit(:title, :lead, :body, :category_id, :user_id)
+    params.require(:post).permit(:category_id, :title, :lead, :body, editorial_list_ids: [])
   end
 end

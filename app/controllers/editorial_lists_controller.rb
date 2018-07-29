@@ -21,14 +21,6 @@ class EditorialListsController < ApplicationController
   def edit
   end
 
-  def add
-    params.permit(:post_id)
-    post = Post.find(params[:post_id])
-    @editorial_list.posts << post # TODO - check uniqueness
-    flash[:notice] = "Post added to list \"#{@editorial_list.title}\""
-    redirect_back(fallback_location: root_path)
-  end
-
   # POST /editorial_lists
   # POST /editorial_lists.json
   def create

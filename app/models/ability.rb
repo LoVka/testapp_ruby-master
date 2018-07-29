@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    return unless user && user.approved?
+    return unless user
 
     case user.role
     when User::ADMIN

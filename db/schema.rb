@@ -32,11 +32,13 @@ ActiveRecord::Schema.define(version: 2018_07_16_125817) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_editorial_lists_on_slug", unique: true
+    t.index ["title"], name: "index_editorial_lists_on_title"
   end
 
   create_table "editorial_lists_posts", force: :cascade do |t|
     t.bigint "editorial_list_id", null: false
     t.bigint "post_id", null: false
+    t.index ["editorial_list_id", "post_id"], name: "index_editorial_lists_posts_on_editorial_list_id_and_post_id", unique: true
     t.index ["editorial_list_id"], name: "index_editorial_lists_posts_on_editorial_list_id"
     t.index ["post_id"], name: "index_editorial_lists_posts_on_post_id"
   end

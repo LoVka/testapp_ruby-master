@@ -1,12 +1,13 @@
 require 'rails_helper'
 require 'shoulda/matchers'
 
-RSpec.describe EditorialList do
+RSpec.describe EditorialList, type: :model do
   describe 'Database' do
     it { is_expected.to have_db_column(:title).of_type(:string).with_options(null: false) }
     it { is_expected.to have_db_column(:about).of_type(:text) }
     it { is_expected.to have_db_column(:slug).of_type(:string).with_options(null: false) }
 
+    it { is_expected.to have_db_index(:title) }
     it { is_expected.to have_db_index(:slug).unique(true) }
   end
 

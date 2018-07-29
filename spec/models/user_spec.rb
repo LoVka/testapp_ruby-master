@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'shoulda/matchers'
 
-RSpec.describe User do
+RSpec.describe User, type: :model do
   describe 'Database' do
     it { is_expected.to have_db_column(:full_name).of_type(:string).with_options(null: false) }
     it { is_expected.to have_db_column(:role).of_type(:string).with_options(default: 'User', null: false) }
@@ -34,5 +34,12 @@ RSpec.describe User do
 
       it { is_expected.to validate_uniqueness_of(:email) }
     end
+  end
+
+  describe '#state' do
+    it { expect(build(:user, banned: true).state).to eq('banned') }
+    it { expect(build(:user).state).to eq('approved') }
+    it { expect(build(:user, approved: false).state).to eq('confirmed') }
+    it { expect(build(:user, approved: false, confirmed_at: nil).state).to eq('new') }
   end
 end
