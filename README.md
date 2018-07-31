@@ -1,4 +1,4 @@
-# Test App Ruby
+# Test App Ruby [![Build Status](https://travis-ci.com/LoVka/testapp_ruby-master.svg?branch=master)](https://travis-ci.com/LoVka/testapp_ruby-master)
 
 Test task for Aejis by Olya Kovtun
 
