@@ -1,24 +1,34 @@
-# README
+# Test App Ruby
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Test task for Aejis by Olya Kovtun
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+Install dependencies
 
-* System dependencies
+    $ gem install bundler
+    $ bundle install
 
-* Configuration
+Setup database
 
-* Database creation
+    $ rake db:create
+    $ rake db:migrate
+    $ rake db:seed
 
-* Database initialization
+## Development
 
-* How to run the test suite
+Start rails server on http://localhost:3000
 
-* Services (job queues, cache servers, search engines, etc.)
+    $ rails s
 
-* Deployment instructions
+Users
 
-* ...
+- admin@example.com
+- manager@example.com
+- user@example.com
+
+password for all users 12345678
+
+## Testing
+
+    $ rspec
