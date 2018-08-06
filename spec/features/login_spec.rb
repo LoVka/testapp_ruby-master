@@ -41,7 +41,7 @@ RSpec.describe 'User Login', type: :feature do
   context 'confirmed and approved' do
     let(:user) { create(:user) }
 
-    specify 'user cannot login' do
+    specify 'user successfully login' do
       visit new_user_session_path
       fill_in 'Email', with: user.email
       fill_in 'Password', with: user.password
